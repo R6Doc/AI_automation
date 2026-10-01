@@ -1,0 +1,552 @@
+{
+  "teams": [
+    {
+      "id": "air-force",
+      "name": "Air Force"
+    },
+    {
+      "id": "akron",
+      "name": "Akron"
+    },
+    {
+      "id": "alabama",
+      "name": "Alabama"
+    },
+    {
+      "id": "appalachian-state",
+      "name": "Appalachian State"
+    },
+    {
+      "id": "arizona",
+      "name": "Arizona"
+    },
+    {
+      "id": "arizona-state",
+      "name": "Arizona State"
+    },
+    {
+      "id": "arkansas",
+      "name": "Arkansas"
+    },
+    {
+      "id": "arkansas-state",
+      "name": "Arkansas State"
+    },
+    {
+      "id": "army",
+      "name": "Army"
+    },
+    {
+      "id": "auburn",
+      "name": "Auburn"
+    },
+    {
+      "id": "ball-state",
+      "name": "Ball State"
+    },
+    {
+      "id": "baylor",
+      "name": "Baylor"
+    },
+    {
+      "id": "boise-state",
+      "name": "Boise State"
+    },
+    {
+      "id": "boston-college",
+      "name": "Boston College"
+    },
+    {
+      "id": "bowling-green",
+      "name": "Bowling Green"
+    },
+    {
+      "id": "buffalo",
+      "name": "Buffalo"
+    },
+    {
+      "id": "byu",
+      "name": "BYU"
+    },
+    {
+      "id": "california",
+      "name": "California"
+    },
+    {
+      "id": "central-michigan",
+      "name": "Central Michigan"
+    },
+    {
+      "id": "charlotte",
+      "name": "Charlotte"
+    },
+    {
+      "id": "cincinnati",
+      "name": "Cincinnati"
+    },
+    {
+      "id": "clemson",
+      "name": "Clemson"
+    },
+    {
+      "id": "coastal-carolina",
+      "name": "Coastal Carolina"
+    },
+    {
+      "id": "colorado",
+      "name": "Colorado"
+    },
+    {
+      "id": "colorado-state",
+      "name": "Colorado State"
+    },
+    {
+      "id": "delaware",
+      "name": "Delaware"
+    },
+    {
+      "id": "duke",
+      "name": "Duke"
+    },
+    {
+      "id": "east-carolina",
+      "name": "East Carolina"
+    },
+    {
+      "id": "eastern-michigan",
+      "name": "Eastern Michigan"
+    },
+    {
+      "id": "fiu",
+      "name": "FIU"
+    },
+    {
+      "id": "florida",
+      "name": "Florida"
+    },
+    {
+      "id": "florida-atlantic",
+      "name": "Florida Atlantic"
+    },
+    {
+      "id": "florida-state",
+      "name": "Florida State"
+    },
+    {
+      "id": "fresno-state",
+      "name": "Fresno State"
+    },
+    {
+      "id": "georgia",
+      "name": "Georgia"
+    },
+    {
+      "id": "georgia-southern",
+      "name": "Georgia Southern"
+    },
+    {
+      "id": "georgia-state",
+      "name": "Georgia State"
+    },
+    {
+      "id": "georgia-tech",
+      "name": "Georgia Tech"
+    },
+    {
+      "id": "hawaii",
+      "name": "Hawai'i"
+    },
+    {
+      "id": "houston",
+      "name": "Houston"
+    },
+    {
+      "id": "illinois",
+      "name": "Illinois"
+    },
+    {
+      "id": "indiana",
+      "name": "Indiana"
+    },
+    {
+      "id": "iowa",
+      "name": "Iowa"
+    },
+    {
+      "id": "iowa-state",
+      "name": "Iowa State"
+    },
+    {
+      "id": "jacksonville-state",
+      "name": "Jacksonville State"
+    },
+    {
+      "id": "james-madison",
+      "name": "James Madison"
+    },
+    {
+      "id": "kansas",
+      "name": "Kansas"
+    },
+    {
+      "id": "kansas-state",
+      "name": "Kansas State"
+    },
+    {
+      "id": "kennesaw-state",
+      "name": "Kennesaw State"
+    },
+    {
+      "id": "kent-state",
+      "name": "Kent State"
+    },
+    {
+      "id": "kentucky",
+      "name": "Kentucky"
+    },
+    {
+      "id": "liberty",
+      "name": "Liberty"
+    },
+    {
+      "id": "louisiana",
+      "name": "Louisiana"
+    },
+    {
+      "id": "louisiana-tech",
+      "name": "Louisiana Tech"
+    },
+    {
+      "id": "louisville",
+      "name": "Louisville"
+    },
+    {
+      "id": "lsu",
+      "name": "LSU"
+    },
+    {
+      "id": "marshall",
+      "name": "Marshall"
+    },
+    {
+      "id": "maryland",
+      "name": "Maryland"
+    },
+    {
+      "id": "memphis",
+      "name": "Memphis"
+    },
+    {
+      "id": "miami",
+      "name": "Miami"
+    },
+    {
+      "id": "miami-oh",
+      "name": "Miami (OH)"
+    },
+    {
+      "id": "michigan",
+      "name": "Michigan"
+    },
+    {
+      "id": "michigan-state",
+      "name": "Michigan State"
+    },
+    {
+      "id": "middle-tennessee",
+      "name": "Middle Tennessee"
+    },
+    {
+      "id": "minnesota",
+      "name": "Minnesota"
+    },
+    {
+      "id": "mississippi-state",
+      "name": "Mississippi State"
+    },
+    {
+      "id": "missouri",
+      "name": "Missouri"
+    },
+    {
+      "id": "missouri-state",
+      "name": "Missouri State"
+    },
+    {
+      "id": "navy",
+      "name": "Navy"
+    },
+    {
+      "id": "nc-state",
+      "name": "NC State"
+    },
+    {
+      "id": "nebraska",
+      "name": "Nebraska"
+    },
+    {
+      "id": "nevada",
+      "name": "Nevada"
+    },
+    {
+      "id": "new-mexico",
+      "name": "New Mexico"
+    },
+    {
+      "id": "new-mexico-state",
+      "name": "New Mexico State"
+    },
+    {
+      "id": "north-carolina",
+      "name": "North Carolina"
+    },
+    {
+      "id": "north-texas",
+      "name": "North Texas"
+    },
+    {
+      "id": "northern-illinois",
+      "name": "Northern Illinois"
+    },
+    {
+      "id": "northwestern",
+      "name": "Northwestern"
+    },
+    {
+      "id": "notre-dame",
+      "name": "Notre Dame"
+    },
+    {
+      "id": "ohio",
+      "name": "Ohio"
+    },
+    {
+      "id": "ohio-state",
+      "name": "Ohio State"
+    },
+    {
+      "id": "oklahoma",
+      "name": "Oklahoma"
+    },
+    {
+      "id": "oklahoma-state",
+      "name": "Oklahoma State"
+    },
+    {
+      "id": "old-dominion",
+      "name": "Old Dominion"
+    },
+    {
+      "id": "ole-miss",
+      "name": "Ole Miss"
+    },
+    {
+      "id": "oregon",
+      "name": "Oregon"
+    },
+    {
+      "id": "oregon-state",
+      "name": "Oregon State"
+    },
+    {
+      "id": "penn-state",
+      "name": "Penn State"
+    },
+    {
+      "id": "pittsburgh",
+      "name": "Pittsburgh"
+    },
+    {
+      "id": "purdue",
+      "name": "Purdue"
+    },
+    {
+      "id": "rice",
+      "name": "Rice"
+    },
+    {
+      "id": "rutgers",
+      "name": "Rutgers"
+    },
+    {
+      "id": "sacramento-state",
+      "name": "Sacramento State"
+    },
+    {
+      "id": "sam-houston",
+      "name": "Sam Houston"
+    },
+    {
+      "id": "san-diego-state",
+      "name": "San Diego State"
+    },
+    {
+      "id": "san-jose-state",
+      "name": "San Jose State"
+    },
+    {
+      "id": "smu",
+      "name": "SMU"
+    },
+    {
+      "id": "south-alabama",
+      "name": "South Alabama"
+    },
+    {
+      "id": "south-carolina",
+      "name": "South Carolina"
+    },
+    {
+      "id": "south-florida",
+      "name": "South Florida"
+    },
+    {
+      "id": "southern-miss",
+      "name": "Southern Miss"
+    },
+    {
+      "id": "stanford",
+      "name": "Stanford"
+    },
+    {
+      "id": "syracuse",
+      "name": "Syracuse"
+    },
+    {
+      "id": "tcu",
+      "name": "TCU"
+    },
+    {
+      "id": "temple",
+      "name": "Temple"
+    },
+    {
+      "id": "tennessee",
+      "name": "Tennessee"
+    },
+    {
+      "id": "texas",
+      "name": "Texas"
+    },
+    {
+      "id": "texas-aandm",
+      "name": "Texas A&M"
+    },
+    {
+      "id": "texas-state",
+      "name": "Texas State"
+    },
+    {
+      "id": "texas-tech",
+      "name": "Texas Tech"
+    },
+    {
+      "id": "toledo",
+      "name": "Toledo"
+    },
+    {
+      "id": "troy",
+      "name": "Troy"
+    },
+    {
+      "id": "tulane",
+      "name": "Tulane"
+    },
+    {
+      "id": "tulsa",
+      "name": "Tulsa"
+    },
+    {
+      "id": "uab",
+      "name": "UAB"
+    },
+    {
+      "id": "ucf",
+      "name": "UCF"
+    },
+    {
+      "id": "ucla",
+      "name": "UCLA"
+    },
+    {
+      "id": "uconn",
+      "name": "UConn"
+    },
+    {
+      "id": "ul-monroe",
+      "name": "UL Monroe"
+    },
+    {
+      "id": "umass",
+      "name": "UMass"
+    },
+    {
+      "id": "unlv",
+      "name": "UNLV"
+    },
+    {
+      "id": "usc",
+      "name": "USC"
+    },
+    {
+      "id": "utah",
+      "name": "Utah"
+    },
+    {
+      "id": "utah-state",
+      "name": "Utah State"
+    },
+    {
+      "id": "utep",
+      "name": "UTEP"
+    },
+    {
+      "id": "utsa",
+      "name": "UTSA"
+    },
+    {
+      "id": "vanderbilt",
+      "name": "Vanderbilt"
+    },
+    {
+      "id": "virginia",
+      "name": "Virginia"
+    },
+    {
+      "id": "virginia-tech",
+      "name": "Virginia Tech"
+    },
+    {
+      "id": "wake-forest",
+      "name": "Wake Forest"
+    },
+    {
+      "id": "washington",
+      "name": "Washington"
+    },
+    {
+      "id": "washington-state",
+      "name": "Washington State"
+    },
+    {
+      "id": "west-virginia",
+      "name": "West Virginia"
+    },
+    {
+      "id": "western-kentucky",
+      "name": "Western Kentucky"
+    },
+    {
+      "id": "western-michigan",
+      "name": "Western Michigan"
+    },
+    {
+      "id": "wisconsin",
+      "name": "Wisconsin"
+    },
+    {
+      "id": "wyoming",
+      "name": "Wyoming"
+    }
+  ]
+}

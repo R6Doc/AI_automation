@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f6f4f1;
+  --card: #ffffff;
+  --fg: #1b1714;
+  --muted: #7a716a;
+  --line: #e6e0da;
+  --logo: #2a211c;
+  --accent: #f26a1b;
+  --accent-fg: #ffffff;
+  --ok: #1f9d55;
+  --bad: #d64545;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14100d;
+    --card: #1e1814;
+    --fg: #f3ede8;
+    --muted: #a0958c;
+    --line: #342a23;
+    --logo: #2b221c;
+    --accent: #f47a2e;
+    --accent-fg: #1a0f08;
+    --ok: #3ccf7a;
+    --bad: #ff6b6b;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-logo: var(--logo);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-ok: var(--ok);
+  --color-bad: var(--bad);
+  --font-sans: var(--font-geist-sans);
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-line bg-card p-4 sm:p-5;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted;
+  }
+  .field {
+    @apply h-11 w-full min-w-0 rounded-lg border border-line bg-bg px-3 text-fg outline-none transition focus:border-accent;
+  }
+}

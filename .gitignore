@@ -1,0 +1,9 @@
+# Illustrator files stay out of git (large, and the template lives on the designer's Mac)
+*.ai
+
+# Agent local state
+agent/config.json
+agent/work/
+agent/template/
+
+.DS_Store
