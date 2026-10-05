@@ -16,7 +16,8 @@ Nothing is stored on a server: `teams.json` is read-only data in the repo, and e
 | --- | --- |
 | `web/` | Next.js dashboard, deployed to Vercel |
 | `agent/` | Local Node service + Illustrator scripts, installed on the designer's Mac |
-| `agent/TEMPLATE_SETUP.md` | One-time prep of the `.ai` template (**do this first**) |
+| `agent/TEMPLATE_SETUP.md` | One-time prep of the `.ai` template, Story + Portrait versions (**do this first**) |
+| `agent/test/` | `node agent/test/generate.test.js` checks the Illustrator script logic without Illustrator |
 
 ## 1. Deploy the dashboard (Vercel)
 

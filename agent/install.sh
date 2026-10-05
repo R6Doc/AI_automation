@@ -65,9 +65,12 @@ PLIST
 launchctl bootout "gui/$(id -u)/$LABEL" 2>/dev/null || true
 launchctl bootstrap "gui/$(id -u)" "$PLIST"
 
-sleep 1
-if curl -fsS "http://127.0.0.1:3030/health" >/dev/null; then
-  echo "✓ Agent is running. Logs: $LOG"
-else
-  echo "! Agent didn't respond yet. Check the log: $LOG"
-fi
+# The first launch can be slow while macOS verifies Node, so give it a few seconds.
+for _ in {1..10}; do
+  if curl -fsS "http://127.0.0.1:3030/health" >/dev/null 2>&1; then
+    echo "✓ Agent is running. Logs: $LOG"
+    exit 0
+  fi
+  sleep 1
+done
+echo "! Agent didn't respond after 10 seconds. Check the log: $LOG"

@@ -1,7 +1,8 @@
 // generate.jsx: fills the match template. Run by the agent via AppleScript `do javascript`.
 // arguments[0] = path to job.json written by the agent (already validated).
 //
-// Template contract (see TEMPLATE_SETUP.md):
+// Template contract (see TEMPLATE_SETUP.md). Each version of the graphic (e.g. Story and
+// Portrait) lives on its own top-level layer, and each such layer contains:
 //   DATE       text frame for the header date
 //   ROWS_AREA  rectangle drawn exactly around the template's rows as designed
 //   MATCH_ROW  group holding ONE match row (incl. its divider), with named children:
@@ -123,9 +124,13 @@ function fillRow(row, match, warnings) {
   placeLogo(row, "AWAY_LOGO", match.away.logoPath, warnings, match.away.name);
 }
 
-function layoutRows(doc, job, warnings) {
-  var proto = requireItem(doc, "MATCH_ROW");
-  var area = requireItem(doc, "ROWS_AREA");
+// Fills one version of the graphic. `scope` is the layer holding that version.
+function fillVersion(scope, job, warnings) {
+  var where = "layer \"" + scope.name + "\"";
+  if (scope.locked) throw new Error("Layer \"" + scope.name + "\" is locked in the template. Unlock it and save the template.");
+  requireItem(scope, "DATE", where).contents = job.dateLabel;
+  var proto = requireItem(scope, "MATCH_ROW", where);
+  var area = requireItem(scope, "ROWS_AREA", where);
   if (proto.typename !== "GroupItem") throw new Error("MATCH_ROW must be a group.");
 
   var n = job.matches.length;
@@ -174,8 +179,13 @@ function main(jobPath) {
     opts.pdfCompatible = true;
     doc.saveAs(new File(job.outputPath), opts);
 
-    requireItem(doc, "DATE").contents = job.dateLabel;
-    layoutRows(doc, job, warnings);
+    // Every top-level layer with a MATCH_ROW is one version; all get the same matches.
+    var versions = [];
+    for (var l = 0; l < doc.layers.length; l++) {
+      if (findByName(doc.layers[l], "MATCH_ROW")) versions.push(doc.layers[l]);
+    }
+    if (!versions.length) throw new Error("The template has no MATCH_ROW. See TEMPLATE_SETUP.md.");
+    for (var v = 0; v < versions.length; v++) fillVersion(versions[v], job, warnings);
 
     doc.save();
     return toJson({ ok: true, file: job.outputPath, warnings: warnings });
