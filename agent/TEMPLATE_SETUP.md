@@ -11,6 +11,18 @@ same graphic, each on its own artboard:
 Each version goes on **its own layer**, and inside each layer we use the **same names**. One Generate
 fills both versions with the same matches.
 
+## Automatic (try this first)
+
+1. Open `~/MatchGenerator/template/template.ai` in Illustrator.
+2. **File → Scripts → Other Script…** → pick `agent/illustrator/prepare-template.jsx` from the repo.
+3. Click **Yes** to confirm. It saves a backup next to the file, does everything below, saves, and then
+   runs the checker.
+
+If it stops with a message, it names the artboard and row that confused it. Nothing is saved in that
+case: use **File → Revert**, fix that spot (or do the manual steps below), and run it again.
+
+## Manual
+
 Names are case-sensitive. To rename anything: select it, find its highlighted row in the **Layers**
 panel (Window → Layers), double-click the name, type the new one.
 

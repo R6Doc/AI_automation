@@ -17,7 +17,7 @@ Nothing is stored on a server: `teams.json` is read-only data in the repo, and e
 | `web/` | Next.js dashboard, deployed to Vercel |
 | `agent/` | Local Node service + Illustrator scripts, installed on the designer's Mac |
 | `agent/TEMPLATE_SETUP.md` | One-time prep of the `.ai` template, Story + Portrait versions (**do this first**) |
-| `agent/test/` | `node agent/test/generate.test.js` checks the Illustrator script logic without Illustrator |
+| `agent/test/` | `node agent/test/prepare.test.js` and `generate.test.js` check the Illustrator scripts without Illustrator |
 
 ## 1. Deploy the dashboard (Vercel)
 
@@ -30,7 +30,7 @@ Local development: `cd web && npm install && npm run dev` (no password when `DAS
 
 ## 2. Prepare the template
 
-Follow [`agent/TEMPLATE_SETUP.md`](agent/TEMPLATE_SETUP.md) in Illustrator. It takes about 10 minutes, once.
+Run `agent/illustrator/prepare-template.jsx` in Illustrator with the template open (it does the setup automatically), or follow [`agent/TEMPLATE_SETUP.md`](agent/TEMPLATE_SETUP.md) by hand.
 
 ## 3. Set up the designer's Mac (once)
 
