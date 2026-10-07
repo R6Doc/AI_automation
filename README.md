@@ -51,8 +51,8 @@ If Illustrator is installed under another name (e.g. `Adobe Illustrator (Beta)`)
 
 ## Everyday maintenance
 
-- **Add a logo:** save it as `web/public/logos/<team-id>.svg` (or `.png`), where `<team-id>` is the team's `id` in `web/data/teams.json` (e.g. `notre-dame.svg`), then push. SVG gives the best result.
-- **Add a team:** add `{ "id": "...", "name": "..." }` to `web/data/teams.json`. Names break one word per line by default. To override, add `"lines": ["San Diego", "State"]`.
+- **Logos:** all 138 FBS logos come from ESPN (500×500 PNG) via `cd web && node scripts/fetch-logos.mjs` (add `--force` to refresh, `--dark` for ESPN's dark-background versions). To use your own logo instead, save it as `web/public/logos/<team-id>.svg` (an SVG wins over the PNG) and push.
+- **Add a team:** add `{ "id": "...", "name": "...", "espnId": 123 }` to `web/data/teams.json` (the ESPN id is the number in the team's ESPN URL), then run the logo script. Names break one word per line by default. To override, add `"lines": ["San Diego", "State"]`.
 - **Team not in the list:** the designer can type any name. It's placed without a logo.
 - **Update the template:** replace `~/MatchGenerator/template/template.ai` on the Mac.
 - **Update the agent:** re-run `install.sh` (it keeps the existing config and template).
