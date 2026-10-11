@@ -42,7 +42,12 @@ function node(typename, name, bounds) {
     else if (where === "PLACEAFTER") attach(rel.parent, it, rel.parent.kids.indexOf(rel) + 1);
     else throw new Error("bad placement " + where);
   };
-  it.duplicate = (rel) => { const c = clone(it); attach(rel.parent, c, rel.parent.kids.indexOf(rel)); return c; };
+  it.duplicate = (rel, where) => {
+    const c = clone(it);
+    if (where === "PLACEATBEGINNING") attach(rel, c, 0);
+    else attach(rel.parent, c, rel.parent.kids.indexOf(rel));
+    return c;
+  };
   it.groupItems = {
     add: () => { const g = node("GroupItem"); attach(it, g, 0); return g; },
     createFromFile: () => { const g = node("GroupItem"); g.kids.push(Object.assign(node("PathItem", "", [0, 50, 200, 0]), { parent: g })); attach(it, g, 0); return g; },
@@ -80,6 +85,24 @@ function makeDoc() {
   return doc;
 }
 
+// Artboards collection; like Illustrator, add() throws when the artboard would leave the canvas.
+const CANVAS = [-8000, 4000, 5000, -8000]; // left, top, right, bottom (small right edge to force wrapping)
+function artboardList(initial) {
+  const list = [...initial];
+  return new Proxy({}, {
+    get: (_, k) => {
+      if (k === "length") return list.length;
+      if (k === "add") return (r) => {
+        if (r[0] < CANVAS[0] || r[1] > CANVAS[1] || r[2] > CANVAS[2] || r[3] < CANVAS[3]) throw new Error("outside canvas");
+        const ab = { name: "", artboardRect: r, remove: () => list.splice(list.indexOf(ab), 1) };
+        list.push(ab);
+        return ab;
+      };
+      return list[k];
+    },
+  });
+}
+
 // Story (1080x1920) at x=0 and Portrait (1080x1350) at x=1200, like the real file: per row a
 // name text, a grouped name text, a VS+time group, two grouped image logos, and a plain divider.
 function realisticTemplate() {
@@ -90,7 +113,7 @@ function realisticTemplate() {
     { rect: [0, 0, 1080, -1920], firstRowY: -560, pitch: 137, title: -150 },
     { rect: [1200, 0, 2280, -1350], firstRowY: -340, pitch: 113, title: -80 },
   ];
-  doc.artboards = Object.assign({ length: 2 }, boards.map((b, i) => ({ name: "Artboard " + (i + 1), artboardRect: b.rect })));
+  doc.artboards = artboardList(boards.map((b, i) => ({ name: "Artboard " + (i + 1), artboardRect: b.rect })));
   for (const b of boards) {
     const x0 = b.rect[0];
     const add = (it) => attach(layer, it, layer.kids.length);
@@ -170,7 +193,7 @@ const find = (container, name) => {
   console.log("✓ realistic template prepared:", notes.join(" | "));
 
   // The prepared template works with generate.jsx.
-  for (const count of [3, 10]) {
+  for (const count of [3, 8]) {
     const prepared = realisticTemplate();
     vm.runInNewContext(PREPARE + "\nprepare(app.activeDocument);", context(prepared));
     const job = {
@@ -193,6 +216,45 @@ const find = (container, name) => {
     }
     console.log(`✓ generate.jsx fills the prepared template with ${count} matches in both versions`);
   }
+}
+
+// More than 8 matches: full copies of both artboards, 8 matches per graphic.
+{
+  const doc = realisticTemplate();
+  vm.runInNewContext(PREPARE + "\nprepare(app.activeDocument);", context(doc));
+  const job = {
+    dateLabel: "Saturday, October 10", templatePath: "/t.ai", outputPath: "/o.ai", templateRowCount: 8,
+    matches: Array.from({ length: 17 }, (_, i) => ({ home: { name: "Team " + i, lines: ["Team", String(i)], logoPath: "/x.png" }, away: { name: "Other", lines: ["Other"], logoPath: null }, time: "1:30 pm" })),
+  };
+  const genCtx = context(doc, {
+    File: function () { this.open = () => true; this.read = () => JSON.stringify(job); this.close = () => {}; this.remove = () => {}; },
+    arguments: ["/job.json"],
+  });
+  delete genCtx.PREPARE_TEST;
+  const res = JSON.parse(vm.runInNewContext(GENERATE, genCtx));
+  assert.equal(res.ok, true, res.error);
+
+  const byName = (n) => doc.kids.find((l) => l.name === n);
+  assert.deepEqual(doc.kids.map((l) => l.name).sort(), ["PORTRAIT", "PORTRAIT 2", "PORTRAIT 3", "STORY", "STORY 2", "STORY 3"]);
+  assert.equal(doc.artboards.length, 6, "2 artboards per graphic");
+
+  const rowsOf = (l) => l.kids.filter((k) => /^MATCH_\d+$/.test(k.name));
+  const homeNames = (l) => rowsOf(l).map((r) => find(r, "HOME_NAME").contents.split("\r")[1]);
+  assert.deepEqual(homeNames(byName("STORY")), ["0", "1", "2", "3", "4", "5", "6", "7"]);
+  assert.deepEqual(homeNames(byName("PORTRAIT 2")), ["8", "9", "10", "11", "12", "13", "14", "15"]);
+  assert.deepEqual(homeNames(byName("STORY 3")), ["16"]);
+  for (const l of doc.kids) assert.equal(find(l, "DATE").contents, "Saturday, October 10", l.name + " date");
+
+  // Each copy's art sits inside its own new artboard.
+  const ab = (i) => doc.artboards[i].artboardRect;
+  const inside = (layer, rect) => layer.kids.every((k) => { const b = k.geometricBounds; const x = (b[0] + b[2]) / 2, y = (b[1] + b[3]) / 2; return x >= rect[0] && x <= rect[2] && y <= rect[1] && y >= rect[3]; });
+  assert.ok(inside(byName("STORY 2"), ab(2)) && inside(byName("PORTRAIT 2"), ab(3)), "graphic 2 inside its artboards");
+  assert.ok(inside(byName("STORY 3"), ab(4)) && inside(byName("PORTRAIT 3"), ab(5)), "graphic 3 inside its artboards");
+  // Graphic 2 went to the right; graphic 3 didn't fit there and went below the originals.
+  assert.equal(ab(2)[0], 0 + 2480);
+  assert.deepEqual([ab(4)[0], ab(4)[1]], [0, -2120]);
+  assert.equal(doc.artboards[2].name, "Artboard 1 (2)");
+  console.log("✓ 17 matches → 3 graphics (8 + 8 + 1), copies placed right, then below when the canvas ran out");
 }
 
 // Ambiguous file → clear error, nothing claimed.

@@ -165,6 +165,68 @@ function fillVersion(scope, job, warnings) {
   area.remove();
 }
 
+function chunk(list, size) {
+  if (!list.length) return [[]]; // still validate the template
+  var out = [];
+  for (var i = 0; i < list.length; i += size) out.push(list.slice(i, i + size));
+  return out;
+}
+
+// The template's original artboards, captured once before any copies are added.
+var originalArtboards = null;
+var usedCells = { "0,0": true };
+
+// Copies every artboard and every version layer into a free spot on the canvas (to the right
+// first, then below, then left) and returns the new layers, in the same order as `versions`.
+function copyPage(doc, versions, pageIndex) {
+  var i, k;
+  if (!originalArtboards) {
+    originalArtboards = [];
+    for (i = 0; i < doc.artboards.length; i++) originalArtboards.push({ rect: doc.artboards[i].artboardRect, name: doc.artboards[i].name });
+  }
+  var left = 1e9, top = -1e9, right = -1e9, bottom = 1e9;
+  for (i = 0; i < originalArtboards.length; i++) {
+    var r = originalArtboards[i].rect;
+    left = Math.min(left, r[0]); top = Math.max(top, r[1]); right = Math.max(right, r[2]); bottom = Math.min(bottom, r[3]);
+  }
+  var gap = 200, stepX = right - left + gap, stepY = top - bottom + gap;
+
+  // Nearest free grid cell whose artboards fit on Illustrator's canvas (artboards.add throws if not).
+  var cells = [[1, 0], [2, 0], [0, 1], [1, 1], [2, 1], [-1, 0], [-1, 1], [3, 0], [0, 2], [1, 2], [2, 2], [-1, 2], [-2, 0], [-2, 1], [0, -1], [1, -1]];
+  var dx = null, dy = null;
+  for (k = 0; k < cells.length && dx === null; k++) {
+    var key = cells[k][0] + "," + cells[k][1];
+    if (usedCells[key]) continue;
+    var cx = cells[k][0] * stepX, cy = -cells[k][1] * stepY;
+    var added = [];
+    try {
+      for (i = 0; i < originalArtboards.length; i++) {
+        var o = originalArtboards[i].rect;
+        var ab = doc.artboards.add([o[0] + cx, o[1] + cy, o[2] + cx, o[3] + cy]);
+        ab.name = originalArtboards[i].name + " (" + (pageIndex + 1) + ")";
+        added.push(ab);
+      }
+      usedCells[key] = true;
+      dx = cx; dy = cy;
+    } catch (e) {
+      for (i = added.length - 1; i >= 0; i--) { try { added[i].remove(); } catch (ignore) {} }
+    }
+  }
+  if (dx === null) throw new Error("No room on the Illustrator canvas for graphic " + (pageIndex + 1) + ". Try fewer matches.");
+
+  var layers = [];
+  for (k = 0; k < versions.length; k++) {
+    var src = versions[k];
+    var layer = doc.layers.add();
+    layer.name = src.name + " " + (pageIndex + 1);
+    // Bottom-most first, each placed on top, so the stacking order stays the same.
+    for (i = src.pageItems.length - 1; i >= 0; i--) src.pageItems[i].duplicate(layer, ElementPlacement.PLACEATBEGINNING);
+    for (i = 0; i < layer.pageItems.length; i++) layer.pageItems[i].translate(dx, dy);
+    layers.push(layer);
+  }
+  return layers;
+}
+
 function main(jobPath) {
   var warnings = [];
   var doc = null;
@@ -185,7 +247,17 @@ function main(jobPath) {
       if (findByName(doc.layers[l], "MATCH_ROW")) versions.push(doc.layers[l]);
     }
     if (!versions.length) throw new Error("The template has no MATCH_ROW. See TEMPLATE_SETUP.md.");
-    for (var v = 0; v < versions.length; v++) fillVersion(versions[v], job, warnings);
+
+    // One graphic holds templateRowCount matches. Extra matches go on full copies of the
+    // artboards (every version), made before anything is filled so each copy is a clean template.
+    var pages = chunk(job.matches, job.templateRowCount);
+    var pageLayers = [versions];
+    for (var p = 1; p < pages.length; p++) pageLayers.push(copyPage(doc, versions, p));
+
+    for (p = 0; p < pages.length; p++) {
+      var pageJob = { dateLabel: job.dateLabel, templateRowCount: job.templateRowCount, matches: pages[p] };
+      for (var v = 0; v < pageLayers[p].length; v++) fillVersion(pageLayers[p][v], pageJob, warnings);
+    }
 
     doc.save();
     return toJson({ ok: true, file: job.outputPath, warnings: warnings });

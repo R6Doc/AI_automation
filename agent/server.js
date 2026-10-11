@@ -14,7 +14,7 @@ const { execFile } = require("node:child_process");
 
 const VERSION = "1.0.0";
 const ROOT = __dirname;
-const MAX_MATCHES = 10;
+const MAX_MATCHES = 32; // 4 graphics of 8 (see templateRowCount)
 const MAX_BODY_BYTES = 64 * 1024;
 const MAX_LOGO_BYTES = 5 * 1024 * 1024;
 const LOGO_TYPES = { ".svg": "image/svg+xml", ".png": "image/png" };

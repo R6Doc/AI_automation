@@ -25,6 +25,11 @@ export type Job = {
   matches: JobMatch[];
 };
 
-export const MAX_MATCHES = 10;
+/** Rows one graphic holds (keep in sync with templateRowCount in the agent's config). */
+export const MATCHES_PER_GRAPHIC = 8;
+/** More matches than one graphic holds go on copies of the artboards in the same file. */
+export const MAX_MATCHES = 32;
+
+export const graphicCount = (matches: number) => Math.max(1, Math.ceil(matches / MATCHES_PER_GRAPHIC));
 
 export const AGENT_URL = process.env.NEXT_PUBLIC_AGENT_URL ?? "http://127.0.0.1:3030";

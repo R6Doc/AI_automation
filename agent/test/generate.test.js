@@ -106,7 +106,7 @@ const divider = (row) => row.kids.find((k) => k.typename === "PathItem" && k.nam
 
 // ---------- tests ----------
 
-for (const [count, logos] of [[1, true], [3, false], [8, true], [10, true]]) {
+for (const [count, logos] of [[1, true], [3, false], [8, true]]) {
   const { result, layers } = run(count, logos);
   assert.equal(result.ok, true, result.error);
 
@@ -127,10 +127,6 @@ for (const [count, logos] of [[1, true], [3, false], [8, true], [10, true]]) {
 
     // With exactly the designed count, row 3 lands exactly where the designer put it.
     if (count === 8) assert.ok(Math.abs(centerY(divider(rows[2])) - (935.5 + dy)) < 1e-6, `${layer.name}: slot 3 untouched`);
-    // 9+ matches shrink rows; up to 8 keep full size.
-    const homeLogo = named(rows[0], "HOME_LOGO");
-    if (count > 8 && homeLogo) assert.ok(homeLogo.geometricBounds[1] - homeLogo.geometricBounds[3] < 80, "rows shrink");
-
     // Names are written with line breaks; logos replace placeholders or are removed.
     assert.equal(named(rows[0], "HOME_NAME").contents, "San\rDiego\rState");
     if (logos) assert.equal(named(rows[0], "HOME_LOGO").typename, "GroupItem");

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import type { Team } from "@/lib/teams";
-import { AGENT_URL, MAX_MATCHES, type Job, type JobTeam } from "@/lib/job";
+import { AGENT_URL, MATCHES_PER_GRAPHIC, MAX_MATCHES, graphicCount, type Job, type JobTeam } from "@/lib/job";
 import { formatDateLabel, formatTimeLabel, splitNameLines } from "@/lib/format";
 import ImportPanel, { type ImportedGame } from "@/components/ImportPanel";
 
@@ -189,7 +189,13 @@ export default function Generator({ teams }: { teams: Team[] }) {
 
       <section className="space-y-3">
         {rows.map((row, i) => (
-          <div key={row.key} className="card">
+          <div key={row.key}>
+          {rows.length > MATCHES_PER_GRAPHIC && i % MATCHES_PER_GRAPHIC === 0 && (
+            <p className={`mb-2 text-xs font-semibold uppercase tracking-wider text-accent ${i === 0 ? "" : "mt-4"}`}>
+              Graphic {i / MATCHES_PER_GRAPHIC + 1} of {graphicCount(rows.length)}
+            </p>
+          )}
+          <div className="card">
             <div className="mb-3 flex items-center justify-between">
               <span className="text-sm font-semibold text-muted">Match {i + 1}</span>
               <div className="flex gap-1">
@@ -208,6 +214,7 @@ export default function Generator({ teams }: { teams: Team[] }) {
               </div>
             </div>
           </div>
+          </div>
         ))}
       </section>
 
@@ -223,7 +230,7 @@ export default function Generator({ teams }: { teams: Team[] }) {
       <footer className="fixed inset-x-0 bottom-0 border-t border-line bg-bg/95 backdrop-blur">
         <div className="mx-auto flex max-w-3xl flex-wrap items-center gap-4 px-4 py-4 sm:px-6">
           <div className="min-w-0 flex-1 text-sm">
-            <RunMessage run={run} problems={problems} agent={agent} />
+            <RunMessage run={run} problems={problems} agent={agent} graphics={graphicCount(rows.length)} />
           </div>
           <button
             type="button"
@@ -297,7 +304,7 @@ function StatusPill({ status }: { status: AgentStatus }) {
   );
 }
 
-function RunMessage({ run, problems, agent }: { run: RunState; problems: string[]; agent: AgentStatus }) {
+function RunMessage({ run, problems, agent, graphics }: { run: RunState; problems: string[]; agent: AgentStatus; graphics: number }) {
   if (run.kind === "running") return <span className="text-muted">Building the graphic in Illustrator…</span>;
   if (run.kind === "done")
     return (
@@ -310,5 +317,10 @@ function RunMessage({ run, problems, agent }: { run: RunState; problems: string[
   if (agent === "offline")
     return <span className="text-muted">The generator isn&apos;t responding. Use Chrome on the design Mac, or restart the Mac.</span>;
   if (problems.length) return <span className="text-muted">{problems[0]}</span>;
-  return <span className="text-muted">Ready. The file opens in Illustrator when it&apos;s done.</span>;
+  return (
+    <span className="text-muted">
+      Ready.{" "}
+      {graphics > 1 ? `${graphics} graphics of up to ${MATCHES_PER_GRAPHIC} matches, all in one file.` : "The file opens in Illustrator when it's done."}
+    </span>
+  );
 }

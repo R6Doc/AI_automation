@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { Team } from "@/lib/teams";
-import { MAX_MATCHES } from "@/lib/job";
+import { MAX_MATCHES, graphicCount } from "@/lib/job";
 import { formatDateLabel, formatTimeLabel } from "@/lib/format";
 import { parseSchedule, type ParsedGame } from "@/lib/schedule";
 
@@ -96,7 +96,9 @@ export default function ImportPanel({ teams, onApply }: { teams: Team[]; onApply
           )}
 
           <div className="mt-4 flex flex-wrap items-center justify-end gap-3">
-            <span className="text-sm text-muted">{selected.size} selected</span>
+            <span className="text-sm text-muted">
+              {selected.size} selected{selected.size > 0 && ` = ${graphicCount(selected.size)} graphic${graphicCount(selected.size) > 1 ? "s" : ""}`}
+            </span>
             <button
               type="button"
               onClick={apply}
