@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { Team } from "@/lib/teams";
 import { AGENT_URL, MAX_MATCHES, type Job, type JobTeam } from "@/lib/job";
 import { formatDateLabel, formatTimeLabel, splitNameLines } from "@/lib/format";
+import ImportPanel, { type ImportedGame } from "@/components/ImportPanel";
 
 type MatchRow = { key: number; home: string; away: string; time: string };
 type AgentStatus = "checking" | "online" | "offline";
@@ -95,6 +96,12 @@ export default function Generator({ teams }: { teams: Team[] }) {
       [copy[index], copy[target]] = [copy[target], copy[index]];
       return copy;
     });
+  // Replace the form with games picked from a pasted schedule.
+  const applyImport = (importedDate: string | null, games: ImportedGame[]) => {
+    if (importedDate) setDate(importedDate);
+    setRows(games.map((g) => ({ key: nextKey++, home: g.home, away: g.away, time: g.time ?? "" })));
+    setRun({ kind: "idle" });
+  };
   const addRow = () =>
     setRows((rs) => (rs.length >= MAX_MATCHES ? rs : [...rs, newRow(rs.at(-1)?.time)]));
 
@@ -163,6 +170,8 @@ export default function Generator({ teams }: { teams: Team[] }) {
           <option key={t.id} value={t.name} />
         ))}
       </datalist>
+
+      <ImportPanel teams={teams} onApply={applyImport} />
 
       <section className="card mb-6">
         <label className="label" htmlFor="date">Game day</label>

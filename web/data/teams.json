@@ -18,7 +18,11 @@
     {
       "id": "appalachian-state",
       "name": "Appalachian State",
-      "espnId": 2026
+      "espnId": 2026,
+      "aliases": [
+        "App State",
+        "Appalachian St"
+      ]
     },
     {
       "id": "arizona",
@@ -83,7 +87,10 @@
     {
       "id": "byu",
       "name": "BYU",
-      "espnId": 252
+      "espnId": 252,
+      "aliases": [
+        "Brigham Young"
+      ]
     },
     {
       "id": "california",
@@ -138,7 +145,10 @@
     {
       "id": "east-carolina",
       "name": "East Carolina",
-      "espnId": 151
+      "espnId": 151,
+      "aliases": [
+        "ECU"
+      ]
     },
     {
       "id": "eastern-michigan",
@@ -148,7 +158,11 @@
     {
       "id": "fiu",
       "name": "FIU",
-      "espnId": 2229
+      "espnId": 2229,
+      "aliases": [
+        "Florida International",
+        "Florida Intl"
+      ]
     },
     {
       "id": "florida",
@@ -158,7 +172,10 @@
     {
       "id": "florida-atlantic",
       "name": "Florida Atlantic",
-      "espnId": 2226
+      "espnId": 2226,
+      "aliases": [
+        "FAU"
+      ]
     },
     {
       "id": "florida-state",
@@ -193,7 +210,10 @@
     {
       "id": "hawaii",
       "name": "Hawai'i",
-      "espnId": 62
+      "espnId": 62,
+      "aliases": [
+        "Hawaii"
+      ]
     },
     {
       "id": "houston",
@@ -223,12 +243,18 @@
     {
       "id": "jacksonville-state",
       "name": "Jacksonville State",
-      "espnId": 55
+      "espnId": 55,
+      "aliases": [
+        "Jax State"
+      ]
     },
     {
       "id": "james-madison",
       "name": "James Madison",
-      "espnId": 256
+      "espnId": 256,
+      "aliases": [
+        "JMU"
+      ]
     },
     {
       "id": "kansas",
@@ -263,7 +289,12 @@
     {
       "id": "louisiana",
       "name": "Louisiana",
-      "espnId": 309
+      "espnId": 309,
+      "aliases": [
+        "Louisiana-Lafayette",
+        "UL Lafayette",
+        "Louisiana Lafayette"
+      ]
     },
     {
       "id": "louisiana-tech",
@@ -278,7 +309,10 @@
     {
       "id": "lsu",
       "name": "LSU",
-      "espnId": 99
+      "espnId": 99,
+      "aliases": [
+        "Louisiana State"
+      ]
     },
     {
       "id": "marshall",
@@ -298,12 +332,22 @@
     {
       "id": "miami",
       "name": "Miami",
-      "espnId": 2390
+      "espnId": 2390,
+      "aliases": [
+        "Miami (FL)",
+        "Miami FL",
+        "Miami Florida"
+      ]
     },
     {
       "id": "miami-oh",
       "name": "Miami (OH)",
-      "espnId": 193
+      "espnId": 193,
+      "aliases": [
+        "Miami Ohio",
+        "Miami-Ohio",
+        "Miami OH"
+      ]
     },
     {
       "id": "michigan",
@@ -318,7 +362,11 @@
     {
       "id": "middle-tennessee",
       "name": "Middle Tennessee",
-      "espnId": 2393
+      "espnId": 2393,
+      "aliases": [
+        "Middle Tennessee State",
+        "MTSU"
+      ]
     },
     {
       "id": "minnesota",
@@ -348,7 +396,11 @@
     {
       "id": "nc-state",
       "name": "NC State",
-      "espnId": 152
+      "espnId": 152,
+      "aliases": [
+        "North Carolina State",
+        "N.C. State"
+      ]
     },
     {
       "id": "nebraska",
@@ -378,7 +430,10 @@
     {
       "id": "north-dakota-state",
       "name": "North Dakota State",
-      "espnId": 2449
+      "espnId": 2449,
+      "aliases": [
+        "NDSU"
+      ]
     },
     {
       "id": "north-texas",
@@ -388,7 +443,10 @@
     {
       "id": "northern-illinois",
       "name": "Northern Illinois",
-      "espnId": 2459
+      "espnId": 2459,
+      "aliases": [
+        "NIU"
+      ]
     },
     {
       "id": "northwestern",
@@ -428,7 +486,10 @@
     {
       "id": "ole-miss",
       "name": "Ole Miss",
-      "espnId": 145
+      "espnId": 145,
+      "aliases": [
+        "Mississippi"
+      ]
     },
     {
       "id": "oregon",
@@ -448,7 +509,10 @@
     {
       "id": "pittsburgh",
       "name": "Pittsburgh",
-      "espnId": 221
+      "espnId": 221,
+      "aliases": [
+        "Pitt"
+      ]
     },
     {
       "id": "purdue",
@@ -468,12 +532,18 @@
     {
       "id": "sacramento-state",
       "name": "Sacramento State",
-      "espnId": 16
+      "espnId": 16,
+      "aliases": [
+        "Sac State"
+      ]
     },
     {
       "id": "sam-houston",
       "name": "Sam Houston",
-      "espnId": 2534
+      "espnId": 2534,
+      "aliases": [
+        "Sam Houston State"
+      ]
     },
     {
       "id": "san-diego-state",
@@ -483,12 +553,19 @@
     {
       "id": "san-jose-state",
       "name": "San Jose State",
-      "espnId": 23
+      "espnId": 23,
+      "aliases": [
+        "San José State",
+        "San Jose St"
+      ]
     },
     {
       "id": "smu",
       "name": "SMU",
-      "espnId": 2567
+      "espnId": 2567,
+      "aliases": [
+        "Southern Methodist"
+      ]
     },
     {
       "id": "south-alabama",
@@ -503,12 +580,18 @@
     {
       "id": "south-florida",
       "name": "South Florida",
-      "espnId": 58
+      "espnId": 58,
+      "aliases": [
+        "USF"
+      ]
     },
     {
       "id": "southern-miss",
       "name": "Southern Miss",
-      "espnId": 2572
+      "espnId": 2572,
+      "aliases": [
+        "Southern Mississippi"
+      ]
     },
     {
       "id": "stanford",
@@ -523,7 +606,10 @@
     {
       "id": "tcu",
       "name": "TCU",
-      "espnId": 2628
+      "espnId": 2628,
+      "aliases": [
+        "Texas Christian"
+      ]
     },
     {
       "id": "temple",
@@ -543,7 +629,10 @@
     {
       "id": "texas-aandm",
       "name": "Texas A&M",
-      "espnId": 245
+      "espnId": 245,
+      "aliases": [
+        "Texas AM"
+      ]
     },
     {
       "id": "texas-state",
@@ -578,12 +667,19 @@
     {
       "id": "uab",
       "name": "UAB",
-      "espnId": 5
+      "espnId": 5,
+      "aliases": [
+        "Alabama-Birmingham",
+        "UA Birmingham"
+      ]
     },
     {
       "id": "ucf",
       "name": "UCF",
-      "espnId": 2116
+      "espnId": 2116,
+      "aliases": [
+        "Central Florida"
+      ]
     },
     {
       "id": "ucla",
@@ -593,27 +689,45 @@
     {
       "id": "uconn",
       "name": "UConn",
-      "espnId": 41
+      "espnId": 41,
+      "aliases": [
+        "Connecticut"
+      ]
     },
     {
       "id": "ul-monroe",
       "name": "UL Monroe",
-      "espnId": 2433
+      "espnId": 2433,
+      "aliases": [
+        "Louisiana-Monroe",
+        "Louisiana Monroe",
+        "ULM"
+      ]
     },
     {
       "id": "umass",
       "name": "UMass",
-      "espnId": 113
+      "espnId": 113,
+      "aliases": [
+        "Massachusetts"
+      ]
     },
     {
       "id": "unlv",
       "name": "UNLV",
-      "espnId": 2439
+      "espnId": 2439,
+      "aliases": [
+        "Nevada-Las Vegas"
+      ]
     },
     {
       "id": "usc",
       "name": "USC",
-      "espnId": 30
+      "espnId": 30,
+      "aliases": [
+        "Southern California",
+        "Southern Cal"
+      ]
     },
     {
       "id": "utah",
@@ -628,12 +742,20 @@
     {
       "id": "utep",
       "name": "UTEP",
-      "espnId": 2638
+      "espnId": 2638,
+      "aliases": [
+        "Texas-El Paso",
+        "UT El Paso"
+      ]
     },
     {
       "id": "utsa",
       "name": "UTSA",
-      "espnId": 2636
+      "espnId": 2636,
+      "aliases": [
+        "UT San Antonio",
+        "Texas-San Antonio"
+      ]
     },
     {
       "id": "vanderbilt",
@@ -673,7 +795,10 @@
     {
       "id": "western-kentucky",
       "name": "Western Kentucky",
-      "espnId": 98
+      "espnId": 98,
+      "aliases": [
+        "WKU"
+      ]
     },
     {
       "id": "western-michigan",

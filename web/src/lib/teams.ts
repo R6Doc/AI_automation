@@ -7,11 +7,13 @@ export type Team = {
   name: string;
   /** Optional override for how the name breaks into lines, e.g. ["San Diego", "State"]. */
   lines?: string[];
+  /** Other spellings used when reading a pasted schedule, e.g. ["App State"]. */
+  aliases?: string[];
   /** Public path to the logo, e.g. "/logos/notre-dame.svg". Null when no logo file exists. */
   logo: string | null;
 };
 
-type RawTeam = { id: string; name: string; lines?: string[] };
+type RawTeam = { id: string; name: string; lines?: string[]; aliases?: string[]; espnId?: number };
 
 const LOGO_EXTENSIONS = [".svg", ".png"];
 
@@ -26,7 +28,7 @@ export function getTeams(): Team[] {
   return (teamsData.teams as RawTeam[])
     .map((t) => {
       const ext = LOGO_EXTENSIONS.find((e) => files.has(t.id + e));
-      return { ...t, logo: ext ? `/logos/${t.id}${ext}` : null };
+      return { id: t.id, name: t.name, lines: t.lines, aliases: t.aliases, logo: ext ? `/logos/${t.id}${ext}` : null };
     })
     .sort((a, b) => a.name.localeCompare(b.name));
 }
