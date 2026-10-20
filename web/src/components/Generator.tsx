@@ -5,6 +5,7 @@ import type { Team, TeamsBySport } from "@/lib/teams";
 import { SPORTS, isSportId, type SportId } from "@/lib/sports";
 import { AGENT_URL, MATCHES_PER_GRAPHIC, MAX_MATCHES, graphicCount, type Job, type JobTeam } from "@/lib/job";
 import { formatDateLabel, formatTimeLabel, splitNameLines } from "@/lib/format";
+import { normalizeName } from "@/lib/schedule";
 import ImportPanel, { type ImportedGame } from "@/components/ImportPanel";
 
 type MatchRow = { key: number; home: string; away: string; time: string };
@@ -55,11 +56,13 @@ export default function Generator({ teamsBySport }: { teamsBySport: TeamsBySport
   const teams = teamsBySport[sport];
   const sportName = SPORTS.find((s) => s.id === sport)!.name;
 
-  const teamsByName = useMemo(
-    () => new Map(teams.map((t) => [t.name.toLowerCase(), t])),
-    [teams],
-  );
-  const findTeam = (name: string) => teamsByName.get(name.trim().toLowerCase());
+  // Typed names match the team's name or any alias ("Atlanta Hawks" finds the Hawks).
+  const teamsByName = useMemo(() => {
+    const map = new Map<string, Team>();
+    for (const t of teams) for (const n of [t.name, ...(t.aliases ?? [])]) map.set(normalizeName(n), t);
+    return map;
+  }, [teams]);
+  const findTeam = (name: string) => teamsByName.get(normalizeName(name));
 
   // Restore the last draft so a page refresh doesn't wipe the form. Done in an effect (not the
   // useState initializer) because localStorage doesn't exist during server rendering.

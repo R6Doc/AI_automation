@@ -32,7 +32,7 @@ assert.deepEqual(odd.games.map((g) => [g.firstTeam?.name ?? g.first, g.secondTea
 ]);
 assert.equal(odd.games[2].firstTeam, undefined);
 
-// NBA: ESPN writes cities ("LA" is the Clippers, "Los Angeles" the Lakers); nicknames and abbreviations work too.
+// NBA: ESPN writes cities or full names ("LA" is the Clippers, "Los Angeles" the Lakers); nicknames and abbreviations work too.
 const nbaTeams = JSON.parse(fs.readFileSync(new URL("../data/nba.json", import.meta.url), "utf8")).teams;
 const nba = parseSchedule(`Tuesday, October 20, 2026
 Boston @ New York: 7:30 PM
@@ -41,11 +41,14 @@ Golden State Warriors at OKC 8:00 PM
 Sixers @ Blazers: 10:30 PM`, nbaTeams);
 assert.equal(nba.date, "2026-10-20");
 assert.deepEqual(nba.games.map((g) => [g.firstTeam?.name, g.secondTeam?.name, g.time]), [
-  ["Boston Celtics", "New York Knicks", "19:30"],
-  ["LA Clippers", "Los Angeles Lakers", "22:00"],
-  ["Golden State Warriors", "Oklahoma City Thunder", "20:00"],
-  ["Philadelphia 76ers", "Portland Trail Blazers", "22:30"],
+  ["Celtics", "Knicks", "19:30"],
+  ["Clippers", "Lakers", "22:00"],
+  ["Warriors", "Thunder", "20:00"],
+  ["76ers", "Trail Blazers", "22:30"],
 ]);
+// NBA teams are shown by nickname only, which is also how schedules often list them.
+const nicknames = parseSchedule("Hawks @ Magic: 5:00 PM\nTimberwolves @ Heat: 5:30 PM", nbaTeams);
+assert.deepEqual(nicknames.games.map((g) => [g.firstTeam?.name, g.secondTeam?.name]), [["Hawks", "Magic"], ["Timberwolves", "Heat"]]);
 
 // No alias may point at two teams.
 const seen = new Map<string, string>();
