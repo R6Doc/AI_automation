@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import type { Team } from "@/lib/teams";
+import type { Team, TeamsBySport } from "@/lib/teams";
+import { SPORTS, isSportId, type SportId } from "@/lib/sports";
 import { AGENT_URL, MATCHES_PER_GRAPHIC, MAX_MATCHES, graphicCount, type Job, type JobTeam } from "@/lib/job";
 import { formatDateLabel, formatTimeLabel, splitNameLines } from "@/lib/format";
 import ImportPanel, { type ImportedGame } from "@/components/ImportPanel";
@@ -14,22 +15,45 @@ type RunState =
   | { kind: "done"; file: string; warnings: string[] }
   | { kind: "error"; message: string };
 
-const DRAFT_KEY = "match-generator-draft-v1";
+type Draft = { date: string; rows: MatchRow[] };
+
+const SPORT_KEY = "match-generator-sport";
+const draftKey = (sport: SportId) => `match-generator-draft-${sport}`;
 let nextKey = 1;
 const newRow = (time = "19:00"): MatchRow => ({ key: nextKey++, home: "", away: "", time });
 
-function nextSaturday(): string {
+const isoDate = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+/** College football is a Saturday thing; NBA plays every night, so default to today. */
+function defaultDate(sport: SportId): string {
   const d = new Date();
-  d.setDate(d.getDate() + ((6 - d.getDay() + 7) % 7));
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  if (sport === "college-football") d.setDate(d.getDate() + ((6 - d.getDay() + 7) % 7));
+  return isoDate(d);
 }
 
-export default function Generator({ teams }: { teams: Team[] }) {
-  const [date, setDate] = useState(nextSaturday);
+/** Each sport keeps its own draft, so switching back and forth loses nothing. */
+function loadDraft(sport: SportId): Draft {
+  try {
+    // Drafts saved before NBA existed were college football.
+    const raw = localStorage.getItem(draftKey(sport)) ?? (sport === "college-football" ? localStorage.getItem("match-generator-draft-v1") : null);
+    if (raw) {
+      const draft = JSON.parse(raw) as { date?: string; rows?: Omit<MatchRow, "key">[] };
+      if (draft.rows?.length) return { date: draft.date || defaultDate(sport), rows: draft.rows.map((r) => ({ ...r, key: nextKey++ })) };
+    }
+  } catch {}
+  return { date: defaultDate(sport), rows: [newRow()] };
+}
+
+export default function Generator({ teamsBySport }: { teamsBySport: TeamsBySport }) {
+  const [sport, setSport] = useState<SportId>("college-football");
+  const [date, setDate] = useState(() => defaultDate("college-football"));
   const [rows, setRows] = useState<MatchRow[]>(() => [newRow()]);
   const [agent, setAgent] = useState<AgentStatus>("checking");
   const [run, setRun] = useState<RunState>({ kind: "idle" });
   const [loaded, setLoaded] = useState(false);
+
+  const teams = teamsBySport[sport];
+  const sportName = SPORTS.find((s) => s.id === sport)!.name;
 
   const teamsByName = useMemo(
     () => new Map(teams.map((t) => [t.name.toLowerCase(), t])),
@@ -41,14 +65,15 @@ export default function Generator({ teams }: { teams: Team[] }) {
   // useState initializer) because localStorage doesn't exist during server rendering.
   /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
+    let saved: string | null = null;
     try {
-      const raw = localStorage.getItem(DRAFT_KEY);
-      if (raw) {
-        const draft = JSON.parse(raw) as { date: string; rows: Omit<MatchRow, "key">[] };
-        if (draft.date) setDate(draft.date);
-        if (draft.rows?.length) setRows(draft.rows.map((r) => ({ ...r, key: nextKey++ })));
-      }
+      saved = localStorage.getItem(SPORT_KEY);
     } catch {}
+    const initial = isSportId(saved) ? saved : "college-football";
+    const draft = loadDraft(initial);
+    setSport(initial);
+    setDate(draft.date);
+    setRows(draft.rows);
     setLoaded(true);
   }, []);
   /* eslint-enable react-hooks/set-state-in-effect */
@@ -56,12 +81,22 @@ export default function Generator({ teams }: { teams: Team[] }) {
   useEffect(() => {
     if (!loaded) return;
     try {
+      localStorage.setItem(SPORT_KEY, sport);
       localStorage.setItem(
-        DRAFT_KEY,
+        draftKey(sport),
         JSON.stringify({ date, rows: rows.map(({ home, away, time }) => ({ home, away, time })) }),
       );
     } catch {}
-  }, [date, rows, loaded]);
+  }, [sport, date, rows, loaded]);
+
+  const switchSport = (next: SportId) => {
+    if (next === sport) return;
+    const draft = loadDraft(next);
+    setSport(next);
+    setDate(draft.date);
+    setRows(draft.rows);
+    setRun({ kind: "idle" });
+  };
 
   // Poll the Mac agent so the designer always sees whether Generate will work.
   useEffect(() => {
@@ -128,6 +163,7 @@ export default function Generator({ teams }: { teams: Team[] }) {
   const generate = async () => {
     if (problems.length || run.kind === "running") return;
     const job: Job = {
+      sport,
       date,
       dateLabel: formatDateLabel(date),
       matches: rows.map((r) => ({
@@ -160,10 +196,28 @@ export default function Generator({ teams }: { teams: Team[] }) {
       <header className="mb-8 flex flex-wrap items-center justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">Cabo Joe&apos;s</p>
-          <h1 className="text-2xl font-bold tracking-tight">College Football Graphic</h1>
+          <h1 className="text-2xl font-bold tracking-tight">{sportName} Graphic</h1>
         </div>
         <StatusPill status={agent} />
       </header>
+
+      <div role="tablist" aria-label="Sport" className="mb-6 inline-flex rounded-xl border border-line bg-card p-1">
+        {SPORTS.map((s) => (
+          <button
+            key={s.id}
+            type="button"
+            role="tab"
+            aria-selected={s.id === sport}
+            onClick={() => switchSport(s.id)}
+            disabled={run.kind === "running"}
+            className={`rounded-lg px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed ${
+              s.id === sport ? "bg-accent text-accent-fg" : "text-muted hover:text-fg"
+            }`}
+          >
+            {s.name}
+          </button>
+        ))}
+      </div>
 
       <datalist id="team-options">
         {teams.map((t) => (
@@ -171,7 +225,7 @@ export default function Generator({ teams }: { teams: Team[] }) {
         ))}
       </datalist>
 
-      <ImportPanel teams={teams} onApply={applyImport} />
+      <ImportPanel key={sport} sport={sport} teams={teams} onApply={applyImport} />
 
       <section className="card mb-6">
         <label className="label" htmlFor="date">Game day</label>

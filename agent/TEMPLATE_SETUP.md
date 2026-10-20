@@ -81,5 +81,6 @@ fix. It also saves `template-structure.txt` to the Desktop, which you can send o
 - Both versions are designed with 8 rows (`templateRowCount` in config). With fewer matches the rows
   are centered in `ROWS_AREA`. More than 8 matches (up to 32) go on full copies of the artboards, 8 per
   graphic, placed next to the originals in the same file.
+- College football and NBA both use this one template. The title isn't filled in, so the designer changes it for NBA.
 - Anything not named (background, title, VS, dividers, Cabo Joe's logo) is left exactly as designed.
 - Adding another size later = another layer with the same names.

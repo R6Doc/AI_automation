@@ -1,6 +1,6 @@
 import Generator from "@/components/Generator";
-import { getTeams } from "@/lib/teams";
+import { getTeamsBySport } from "@/lib/teams";
 
 export default function Home() {
-  return <Generator teams={getTeams()} />;
+  return <Generator teamsBySport={getTeamsBySport()} />;
 }

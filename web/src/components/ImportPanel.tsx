@@ -2,15 +2,21 @@
 
 import { useMemo, useState } from "react";
 import type { Team } from "@/lib/teams";
+import type { SportId } from "@/lib/sports";
 import { MAX_MATCHES, graphicCount } from "@/lib/job";
 import { formatDateLabel, formatTimeLabel } from "@/lib/format";
 import { parseSchedule, type ParsedGame } from "@/lib/schedule";
 
 export type ImportedGame = { home: string; away: string; time: string | null };
 
+const EXAMPLES: Record<SportId, string> = {
+  "college-football": "Saturday, October 10, 2026\n7 Indiana @ Nebraska: 10:00 AM\n1 Texas vs Oklahoma: 1:30 PM",
+  nba: "Tuesday, October 20, 2026\nBoston @ New York: 7:30 PM\nGolden State vs LA Lakers: 10:00 PM",
+};
+
 const firstSelection = (count: number) => new Set(Array.from({ length: Math.min(count, MAX_MATCHES) }, (_, i) => i));
 
-export default function ImportPanel({ teams, onApply }: { teams: Team[]; onApply: (date: string | null, games: ImportedGame[]) => void }) {
+export default function ImportPanel({ sport, teams, onApply }: { sport: SportId; teams: Team[]; onApply: (date: string | null, games: ImportedGame[]) => void }) {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
   const [selected, setSelected] = useState<Set<number>>(new Set());
@@ -61,7 +67,7 @@ export default function ImportPanel({ teams, onApply }: { teams: Team[]; onApply
       </div>
       <textarea
         className="field h-40 resize-y py-2 font-mono text-sm"
-        placeholder={"Saturday, October 10, 2026\n7 Indiana @ Nebraska: 10:00 AM\n1 Texas vs Oklahoma: 1:30 PM"}
+        placeholder={EXAMPLES[sport]}
         value={text}
         onChange={(e) => onTextChange(e.target.value)}
       />
@@ -70,7 +76,7 @@ export default function ImportPanel({ teams, onApply }: { teams: Team[]; onApply
         <div className="mt-4">
           <p className="mb-2 text-sm text-muted">
             {games.length === 0
-              ? "No games found. Each game needs a line like “Indiana @ Nebraska: 10:00 AM”."
+              ? `No games found. Each game needs a line like “${EXAMPLES[sport].split("\n")[1]}”.`
               : <>Found <strong className="text-fg">{games.length}</strong> games{parsed.date && <> for <strong className="text-fg">{formatDateLabel(parsed.date)}</strong></>}. Pick up to {MAX_MATCHES}.</>}
           </p>
 

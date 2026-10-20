@@ -1,0 +1,346 @@
+{
+  "teams": [
+    {
+      "id": "atlanta-hawks",
+      "name": "Atlanta Hawks",
+      "nbaId": 1610612737,
+      "aliases": [
+        "Atlanta",
+        "Hawks",
+        "ATL"
+      ]
+    },
+    {
+      "id": "boston-celtics",
+      "name": "Boston Celtics",
+      "nbaId": 1610612738,
+      "aliases": [
+        "Boston",
+        "Celtics",
+        "BOS"
+      ]
+    },
+    {
+      "id": "brooklyn-nets",
+      "name": "Brooklyn Nets",
+      "nbaId": 1610612751,
+      "aliases": [
+        "Brooklyn",
+        "Nets",
+        "BKN",
+        "BK"
+      ]
+    },
+    {
+      "id": "charlotte-hornets",
+      "name": "Charlotte Hornets",
+      "nbaId": 1610612766,
+      "aliases": [
+        "Charlotte",
+        "Hornets",
+        "CHA"
+      ]
+    },
+    {
+      "id": "chicago-bulls",
+      "name": "Chicago Bulls",
+      "nbaId": 1610612741,
+      "aliases": [
+        "Chicago",
+        "Bulls",
+        "CHI"
+      ]
+    },
+    {
+      "id": "cleveland-cavaliers",
+      "name": "Cleveland Cavaliers",
+      "nbaId": 1610612739,
+      "aliases": [
+        "Cleveland",
+        "Cavaliers",
+        "Cavs",
+        "CLE"
+      ]
+    },
+    {
+      "id": "dallas-mavericks",
+      "name": "Dallas Mavericks",
+      "nbaId": 1610612742,
+      "aliases": [
+        "Dallas",
+        "Mavericks",
+        "Mavs",
+        "DAL"
+      ]
+    },
+    {
+      "id": "denver-nuggets",
+      "name": "Denver Nuggets",
+      "nbaId": 1610612743,
+      "aliases": [
+        "Denver",
+        "Nuggets",
+        "DEN"
+      ]
+    },
+    {
+      "id": "detroit-pistons",
+      "name": "Detroit Pistons",
+      "nbaId": 1610612765,
+      "aliases": [
+        "Detroit",
+        "Pistons",
+        "DET"
+      ]
+    },
+    {
+      "id": "golden-state-warriors",
+      "name": "Golden State Warriors",
+      "nbaId": 1610612744,
+      "lines": [
+        "Golden State",
+        "Warriors"
+      ],
+      "aliases": [
+        "Golden State",
+        "Warriors",
+        "GSW",
+        "GS"
+      ]
+    },
+    {
+      "id": "houston-rockets",
+      "name": "Houston Rockets",
+      "nbaId": 1610612745,
+      "aliases": [
+        "Houston",
+        "Rockets",
+        "HOU"
+      ]
+    },
+    {
+      "id": "indiana-pacers",
+      "name": "Indiana Pacers",
+      "nbaId": 1610612754,
+      "aliases": [
+        "Indiana",
+        "Pacers",
+        "IND"
+      ]
+    },
+    {
+      "id": "la-clippers",
+      "name": "LA Clippers",
+      "nbaId": 1610612746,
+      "aliases": [
+        "LA",
+        "Clippers",
+        "Los Angeles Clippers",
+        "LAC"
+      ]
+    },
+    {
+      "id": "los-angeles-lakers",
+      "name": "Los Angeles Lakers",
+      "nbaId": 1610612747,
+      "lines": [
+        "Los Angeles",
+        "Lakers"
+      ],
+      "aliases": [
+        "Los Angeles",
+        "Lakers",
+        "LA Lakers",
+        "LAL"
+      ]
+    },
+    {
+      "id": "memphis-grizzlies",
+      "name": "Memphis Grizzlies",
+      "nbaId": 1610612763,
+      "aliases": [
+        "Memphis",
+        "Grizzlies",
+        "MEM"
+      ]
+    },
+    {
+      "id": "miami-heat",
+      "name": "Miami Heat",
+      "nbaId": 1610612748,
+      "aliases": [
+        "Miami",
+        "Heat",
+        "MIA"
+      ]
+    },
+    {
+      "id": "milwaukee-bucks",
+      "name": "Milwaukee Bucks",
+      "nbaId": 1610612749,
+      "aliases": [
+        "Milwaukee",
+        "Bucks",
+        "MIL"
+      ]
+    },
+    {
+      "id": "minnesota-timberwolves",
+      "name": "Minnesota Timberwolves",
+      "nbaId": 1610612750,
+      "aliases": [
+        "Minnesota",
+        "Timberwolves",
+        "Wolves",
+        "MIN"
+      ]
+    },
+    {
+      "id": "new-orleans-pelicans",
+      "name": "New Orleans Pelicans",
+      "nbaId": 1610612740,
+      "lines": [
+        "New Orleans",
+        "Pelicans"
+      ],
+      "aliases": [
+        "New Orleans",
+        "Pelicans",
+        "NOP",
+        "NO"
+      ]
+    },
+    {
+      "id": "new-york-knicks",
+      "name": "New York Knicks",
+      "nbaId": 1610612752,
+      "lines": [
+        "New York",
+        "Knicks"
+      ],
+      "aliases": [
+        "New York",
+        "Knicks",
+        "NYK",
+        "NY"
+      ]
+    },
+    {
+      "id": "oklahoma-city-thunder",
+      "name": "Oklahoma City Thunder",
+      "nbaId": 1610612760,
+      "lines": [
+        "Oklahoma City",
+        "Thunder"
+      ],
+      "aliases": [
+        "Oklahoma City",
+        "Thunder",
+        "OKC"
+      ]
+    },
+    {
+      "id": "orlando-magic",
+      "name": "Orlando Magic",
+      "nbaId": 1610612753,
+      "aliases": [
+        "Orlando",
+        "Magic",
+        "ORL"
+      ]
+    },
+    {
+      "id": "philadelphia-76ers",
+      "name": "Philadelphia 76ers",
+      "nbaId": 1610612755,
+      "aliases": [
+        "Philadelphia",
+        "76ers",
+        "Sixers",
+        "PHI"
+      ]
+    },
+    {
+      "id": "phoenix-suns",
+      "name": "Phoenix Suns",
+      "nbaId": 1610612756,
+      "aliases": [
+        "Phoenix",
+        "Suns",
+        "PHX"
+      ]
+    },
+    {
+      "id": "portland-trail-blazers",
+      "name": "Portland Trail Blazers",
+      "nbaId": 1610612757,
+      "lines": [
+        "Portland",
+        "Trail Blazers"
+      ],
+      "aliases": [
+        "Portland",
+        "Trail Blazers",
+        "Blazers",
+        "POR"
+      ]
+    },
+    {
+      "id": "sacramento-kings",
+      "name": "Sacramento Kings",
+      "nbaId": 1610612758,
+      "aliases": [
+        "Sacramento",
+        "Kings",
+        "SAC"
+      ]
+    },
+    {
+      "id": "san-antonio-spurs",
+      "name": "San Antonio Spurs",
+      "nbaId": 1610612759,
+      "lines": [
+        "San Antonio",
+        "Spurs"
+      ],
+      "aliases": [
+        "San Antonio",
+        "Spurs",
+        "SAS",
+        "SA"
+      ]
+    },
+    {
+      "id": "toronto-raptors",
+      "name": "Toronto Raptors",
+      "nbaId": 1610612761,
+      "aliases": [
+        "Toronto",
+        "Raptors",
+        "TOR"
+      ]
+    },
+    {
+      "id": "utah-jazz",
+      "name": "Utah Jazz",
+      "nbaId": 1610612762,
+      "aliases": [
+        "Utah",
+        "Jazz",
+        "UTA",
+        "UTAH"
+      ]
+    },
+    {
+      "id": "washington-wizards",
+      "name": "Washington Wizards",
+      "nbaId": 1610612764,
+      "aliases": [
+        "Washington",
+        "Wizards",
+        "WAS",
+        "WSH"
+      ]
+    }
+  ]
+}

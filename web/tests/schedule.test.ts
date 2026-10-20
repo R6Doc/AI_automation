@@ -1,9 +1,9 @@
 // Run: node --experimental-strip-types tests/schedule.test.ts
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { parseSchedule } from "../src/lib/schedule.ts";
+import { normalizeName, parseSchedule } from "../src/lib/schedule.ts";
 
-const teams = JSON.parse(fs.readFileSync(new URL("../data/teams.json", import.meta.url), "utf8")).teams;
+const teams = JSON.parse(fs.readFileSync(new URL("../data/college-football.json", import.meta.url), "utf8")).teams;
 
 const espn = `https://www.espn.com/college-football/schedule
 
@@ -31,5 +31,29 @@ assert.deepEqual(odd.games.map((g) => [g.firstTeam?.name ?? g.first, g.secondTea
   ["Some Unknown U", "Miami (OH)", "23:05"],
 ]);
 assert.equal(odd.games[2].firstTeam, undefined);
+
+// NBA: ESPN writes cities ("LA" is the Clippers, "Los Angeles" the Lakers); nicknames and abbreviations work too.
+const nbaTeams = JSON.parse(fs.readFileSync(new URL("../data/nba.json", import.meta.url), "utf8")).teams;
+const nba = parseSchedule(`Tuesday, October 20, 2026
+Boston @ New York: 7:30 PM
+LA vs Los Angeles: 10:00 PM
+Golden State Warriors at OKC 8:00 PM
+Sixers @ Blazers: 10:30 PM`, nbaTeams);
+assert.equal(nba.date, "2026-10-20");
+assert.deepEqual(nba.games.map((g) => [g.firstTeam?.name, g.secondTeam?.name, g.time]), [
+  ["Boston Celtics", "New York Knicks", "19:30"],
+  ["LA Clippers", "Los Angeles Lakers", "22:00"],
+  ["Golden State Warriors", "Oklahoma City Thunder", "20:00"],
+  ["Philadelphia 76ers", "Portland Trail Blazers", "22:30"],
+]);
+
+// No alias may point at two teams.
+const seen = new Map<string, string>();
+for (const t of nbaTeams as { name: string; aliases?: string[] }[]) {
+  for (const key of [t.name, ...(t.aliases ?? [])].map(normalizeName)) {
+    assert.ok(!seen.has(key) || seen.get(key) === t.name, `"${key}" is used by ${seen.get(key)} and ${t.name}`);
+    seen.set(key, t.name);
+  }
+}
 
 console.log("✓ schedule parser");

@@ -18,6 +18,8 @@ const MAX_MATCHES = 32; // 4 graphics of 8 (see templateRowCount)
 const MAX_BODY_BYTES = 64 * 1024;
 const MAX_LOGO_BYTES = 5 * 1024 * 1024;
 const LOGO_TYPES = { ".svg": "image/svg+xml", ".png": "image/png" };
+// Keep in sync with web/src/lib/sports.ts. All sports share one template; the sport names the file.
+const SPORTS = ["college-football", "nba"];
 
 const config = loadConfig();
 const expandHome = (p) => (p.startsWith("~/") ? path.join(os.homedir(), p.slice(2)) : p);
@@ -94,10 +96,14 @@ function validateTeam(t, field) {
 function validateJob(body) {
   if (!body || typeof body !== "object") throw new BadRequest("Request body must be JSON.");
   if (typeof body.date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(body.date)) throw new BadRequest("date must be YYYY-MM-DD.");
+  // Older dashboards don't send a sport: those jobs are college football.
+  const sport = body.sport === undefined ? SPORTS[0] : body.sport;
+  if (!SPORTS.includes(sport)) throw new BadRequest(`Unknown sport. Use one of: ${SPORTS.join(", ")}.`);
   if (!Array.isArray(body.matches) || body.matches.length < 1 || body.matches.length > MAX_MATCHES) {
     throw new BadRequest(`Send between 1 and ${MAX_MATCHES} matches.`);
   }
   return {
+    sport,
     date: body.date,
     dateLabel: str(body.dateLabel, "dateLabel", 60),
     matches: body.matches.map((m, i) => ({
@@ -148,9 +154,9 @@ async function resolveLogos(job, warnings) {
 
 // ---------- Illustrator ----------
 
-function outputPathFor(date) {
+function outputPathFor(date, sport) {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-  const base = `${date}-college-football`;
+  const base = `${date}-${sport}`;
   let candidate = path.join(OUTPUT_DIR, `${base}.ai`);
   for (let n = 2; fs.existsSync(candidate); n++) candidate = path.join(OUTPUT_DIR, `${base}-${n}.ai`);
   return candidate;
@@ -205,7 +211,7 @@ async function generate(job) {
   if (!fs.existsSync(TEMPLATE_PATH)) throw new Error(`Template not found at ${TEMPLATE_PATH}.`);
   await resolveLogos(job, warnings);
 
-  const outputPath = outputPathFor(job.date);
+  const outputPath = outputPathFor(job.date, job.sport);
   const jobPath = path.join(WORK_DIR, "job.json");
   fs.mkdirSync(WORK_DIR, { recursive: true });
   fs.writeFileSync(jobPath, JSON.stringify({ ...job, templatePath: TEMPLATE_PATH, outputPath, templateRowCount: config.templateRowCount }, null, 2));
@@ -288,7 +294,7 @@ const server = http.createServer(async (req, res) => {
         throw err instanceof BadRequest ? err : new BadRequest("Request body must be JSON.");
       }
       const job = validateJob(body);
-      log(`Generating ${job.date} with ${job.matches.length} matches`);
+      log(`Generating ${job.sport} ${job.date} with ${job.matches.length} matches`);
       const result = await generate(job);
       log(`Saved ${result.path}`);
       send(res, 200, { ok: true, ...result }, allowed);

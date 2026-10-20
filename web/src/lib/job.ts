@@ -1,3 +1,5 @@
+import type { SportId } from "./sports";
+
 /**
  * The exact payload the dashboard sends to the Mac agent (POST /generate).
  * Keep in sync with validateJob() in agent/server.js.
@@ -18,6 +20,8 @@ export type JobMatch = {
 };
 
 export type Job = {
+  /** Picks the template on the Mac and names the output file. */
+  sport: SportId;
   /** ISO date, e.g. "2026-10-03" (used for the output file name). */
   date: string;
   /** Already formatted, e.g. "Saturday, October 3". */
