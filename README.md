@@ -1,6 +1,6 @@
 # Match Generator
 
-The designer picks the matches on a web dashboard, clicks **Generate**, and Illustrator opens a finished college football or NBA graphic ready for polishing. Both sports use the same template.
+The designer picks the matches on a web dashboard, clicks **Generate**, and Illustrator opens a finished college football, NFL, NBA or MLB graphic ready for polishing. All sports use the same template.
 
 ```text
 Vercel dashboard (Chrome)  ──POST match list──▶  Agent on the designer's Mac (127.0.0.1:3030)
@@ -51,9 +51,9 @@ If Illustrator is installed under another name (e.g. `Adobe Illustrator (Beta)`)
 
 ## Everyday maintenance
 
-- **Sports:** College Football (`web/data/college-football.json`, 138 FBS teams) and NBA (`web/data/nba.json`, 30 teams). The dashboard has a switch at the top. Each sport keeps its own draft, and the output file is named `<date>-<sport>.ai`.
-- **Logos:** `cd web && node scripts/fetch-logos.mjs` downloads missing logos: college football from ESPN (500×500 PNG), NBA from nba.com (vector SVG). Add a sport name to do just one (`... fetch-logos.mjs nba`), `--force` to refresh, and `--dark` for ESPN's dark-background versions. To use your own logo instead, save it as `web/public/logos/<sport>/<team-id>.svg` (an SVG wins over the PNG) and push.
-- **Add a team:** add `{ "id": "...", "name": "...", "espnId": 123 }` to `web/data/college-football.json` (the ESPN id is the number in the team's ESPN URL), or `{ "id": "...", "name": "...", "nbaId": 1610612738 }` to `web/data/nba.json`, then run the logo script. Names break one word per line by default. To override, add `"lines": ["Golden State", "Warriors"]`. `aliases` are other spellings a pasted schedule might use (cities, nicknames, abbreviations).
+- **Sports:** College Football (`web/data/college-football.json`, 138 FBS teams), NFL (`nfl.json`, 32), NBA (`nba.json`, 30) and MLB (`mlb.json`, 30). Pro teams are shown by nickname ("Chiefs"), with the city, full name and abbreviation as aliases. The dashboard has a switch at the top. Each sport keeps its own draft, and the output file is named `<date>-<sport>.ai`.
+- **Logos:** `cd web && node scripts/fetch-logos.mjs` downloads missing logos: college football from ESPN (500×500 PNG), NBA/NFL/MLB from the league sites (vector SVG; 4 NFL teams only have PNGs, so those use the largest one available). Add a sport name to do just one (`... fetch-logos.mjs nba`), `--force` to refresh, and `--dark` for ESPN's dark-background versions. To use your own logo instead, save it as `web/public/logos/<sport>/<team-id>.svg` (an SVG wins over the PNG) and push.
+- **Add a team:** add `{ "id": "...", "name": "...", "espnId": 123 }` to `web/data/college-football.json` (the ESPN id is the number in the team's ESPN URL), `{ "id": "...", "name": "...", "nbaId": 1610612738 }` to `web/data/nba.json`, or `{ "id": "...", "name": "...", "logoUrl": "https://..." }` to `nfl.json` / `mlb.json`, then run the logo script. Names break one word per line by default. To override, add `"lines": ["Golden State", "Warriors"]`. `aliases` are other spellings a pasted schedule might use (cities, nicknames, abbreviations).
 - **Team not in the list:** the designer can type any name. It's placed without a logo.
 - **Update the template:** replace `~/MatchGenerator/template/template.ai` on the Mac.
 - **Update the agent:** re-run `install.sh` (it keeps the existing config and template).

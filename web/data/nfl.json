@@ -1,0 +1,329 @@
+{
+  "teams": [
+    {
+      "id": "arizona-cardinals",
+      "name": "Cardinals",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/u9fltoslqdsyao8cpm0k",
+      "aliases": [
+        "Arizona Cardinals",
+        "Arizona",
+        "ARI"
+      ]
+    },
+    {
+      "id": "atlanta-falcons",
+      "name": "Falcons",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/d8m7hzpsbrl6pnqht8op",
+      "aliases": [
+        "Atlanta Falcons",
+        "Atlanta",
+        "ATL"
+      ]
+    },
+    {
+      "id": "baltimore-ravens",
+      "name": "Ravens",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/ucsdijmddsqcj1i9tddd",
+      "aliases": [
+        "Baltimore Ravens",
+        "Baltimore",
+        "BAL"
+      ]
+    },
+    {
+      "id": "buffalo-bills",
+      "name": "Bills",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/giphcy6ie9mxbnldntsf",
+      "aliases": [
+        "Buffalo Bills",
+        "Buffalo",
+        "BUF"
+      ]
+    },
+    {
+      "id": "carolina-panthers",
+      "name": "Panthers",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/ervfzgrqdpnc7lh5gqwq",
+      "aliases": [
+        "Carolina Panthers",
+        "Carolina",
+        "CAR"
+      ]
+    },
+    {
+      "id": "chicago-bears",
+      "name": "Bears",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/ijrplti0kmzsyoaikhv1",
+      "aliases": [
+        "Chicago Bears",
+        "Chicago",
+        "CHI"
+      ]
+    },
+    {
+      "id": "cincinnati-bengals",
+      "name": "Bengals",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/okxpteoliyayufypqalq",
+      "aliases": [
+        "Cincinnati Bengals",
+        "Cincinnati",
+        "CIN"
+      ]
+    },
+    {
+      "id": "cleveland-browns",
+      "name": "Browns",
+      "logoUrl": "https://static.www.nfl.com/image/upload/f_png/league/bedyixmmjhszfcx5wv2l",
+      "aliases": [
+        "Cleveland Browns",
+        "Cleveland",
+        "CLE"
+      ]
+    },
+    {
+      "id": "dallas-cowboys",
+      "name": "Cowboys",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/ieid8hoygzdlmzo0tnf6",
+      "aliases": [
+        "Dallas Cowboys",
+        "Dallas",
+        "DAL"
+      ]
+    },
+    {
+      "id": "denver-broncos",
+      "name": "Broncos",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/t0p7m5cjdjy18rnzzqbx",
+      "aliases": [
+        "Denver Broncos",
+        "Denver",
+        "DEN"
+      ]
+    },
+    {
+      "id": "detroit-lions",
+      "name": "Lions",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/ocvxwnapdvwevupe4tpr",
+      "aliases": [
+        "Detroit Lions",
+        "Detroit",
+        "DET"
+      ]
+    },
+    {
+      "id": "green-bay-packers",
+      "name": "Packers",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/gppfvr7n8gljgjaqux2x",
+      "aliases": [
+        "Green Bay Packers",
+        "Green Bay",
+        "GB"
+      ]
+    },
+    {
+      "id": "houston-texans",
+      "name": "Texans",
+      "logoUrl": "https://static.www.nfl.com/image/upload/f_png/league/u6camnphqvjc6mku6u3c",
+      "aliases": [
+        "Houston Texans",
+        "Houston",
+        "HOU"
+      ]
+    },
+    {
+      "id": "indianapolis-colts",
+      "name": "Colts",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/ketwqeuschqzjsllbid5",
+      "aliases": [
+        "Indianapolis Colts",
+        "Indianapolis",
+        "IND"
+      ]
+    },
+    {
+      "id": "jacksonville-jaguars",
+      "name": "Jaguars",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/qycbib6ivrm9dqaexryk",
+      "aliases": [
+        "Jacksonville Jaguars",
+        "Jacksonville",
+        "Jags",
+        "JAX"
+      ]
+    },
+    {
+      "id": "kansas-city-chiefs",
+      "name": "Chiefs",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/ujshjqvmnxce8m4obmvs",
+      "aliases": [
+        "Kansas City Chiefs",
+        "Kansas City",
+        "KC"
+      ]
+    },
+    {
+      "id": "las-vegas-raiders",
+      "name": "Raiders",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/gzcojbzcyjgubgyb6xf2",
+      "aliases": [
+        "Las Vegas Raiders",
+        "Las Vegas",
+        "LV"
+      ]
+    },
+    {
+      "id": "los-angeles-chargers",
+      "name": "Chargers",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/dhfidtn8jrumakbogeu4",
+      "aliases": [
+        "Los Angeles Chargers",
+        "LA Chargers",
+        "LAC"
+      ]
+    },
+    {
+      "id": "los-angeles-rams",
+      "name": "Rams",
+      "logoUrl": "https://static.www.nfl.com/image/upload/f_svg/league/ssfh7d2tbkbltexf0xqg",
+      "aliases": [
+        "Los Angeles Rams",
+        "LA Rams",
+        "LAR"
+      ]
+    },
+    {
+      "id": "miami-dolphins",
+      "name": "Dolphins",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/lits6p8ycthy9to70bnt",
+      "aliases": [
+        "Miami Dolphins",
+        "Miami",
+        "MIA"
+      ]
+    },
+    {
+      "id": "minnesota-vikings",
+      "name": "Vikings",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/teguylrnqqmfcwxvcmmz",
+      "aliases": [
+        "Minnesota Vikings",
+        "Minnesota",
+        "MIN"
+      ]
+    },
+    {
+      "id": "new-england-patriots",
+      "name": "Patriots",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/moyfxx3dq5pio4aiftnc",
+      "aliases": [
+        "New England Patriots",
+        "New England",
+        "Pats",
+        "NE"
+      ]
+    },
+    {
+      "id": "new-orleans-saints",
+      "name": "Saints",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/grhjkahghjkk17v43hdx",
+      "aliases": [
+        "New Orleans Saints",
+        "New Orleans",
+        "NO"
+      ]
+    },
+    {
+      "id": "new-york-giants",
+      "name": "Giants",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/t6mhdmgizi6qhndh8b9p",
+      "aliases": [
+        "New York Giants",
+        "NY Giants",
+        "NYG"
+      ]
+    },
+    {
+      "id": "new-york-jets",
+      "name": "Jets",
+      "logoUrl": "https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png",
+      "aliases": [
+        "New York Jets",
+        "NY Jets",
+        "NYJ"
+      ]
+    },
+    {
+      "id": "philadelphia-eagles",
+      "name": "Eagles",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/puhrqgj71gobgdkdo6uq",
+      "aliases": [
+        "Philadelphia Eagles",
+        "Philadelphia",
+        "PHI"
+      ]
+    },
+    {
+      "id": "pittsburgh-steelers",
+      "name": "Steelers",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/xujg9t3t4u5nmjgr54wx",
+      "aliases": [
+        "Pittsburgh Steelers",
+        "Pittsburgh",
+        "PIT"
+      ]
+    },
+    {
+      "id": "san-francisco-49ers",
+      "name": "49ers",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/dxibuyxbk0b9ua5ih9hn",
+      "aliases": [
+        "San Francisco 49ers",
+        "San Francisco",
+        "Niners",
+        "SF"
+      ]
+    },
+    {
+      "id": "seattle-seahawks",
+      "name": "Seahawks",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/gcytzwpjdzbpwnwxincg",
+      "aliases": [
+        "Seattle Seahawks",
+        "Seattle",
+        "SEA"
+      ]
+    },
+    {
+      "id": "tampa-bay-buccaneers",
+      "name": "Buccaneers",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_svg/league/v8uqiualryypwqgvwcih",
+      "aliases": [
+        "Tampa Bay Buccaneers",
+        "Tampa Bay",
+        "Bucs",
+        "TB"
+      ]
+    },
+    {
+      "id": "tennessee-titans",
+      "name": "Titans",
+      "logoUrl": "https://static.www.nfl.com/image/upload/f_svg/league/wxdf3ixx9hqg4k9bw5ju",
+      "aliases": [
+        "Tennessee Titans",
+        "Tennessee",
+        "TEN"
+      ]
+    },
+    {
+      "id": "washington-commanders",
+      "name": "Commanders",
+      "logoUrl": "https://static.www.nfl.com/image/private/f_png,w_2000,c_limit/league/xymxwrxtyj9fhaemhdyd",
+      "aliases": [
+        "Washington Commanders",
+        "Washington",
+        "WSH",
+        "WAS"
+      ]
+    }
+  ]
+}

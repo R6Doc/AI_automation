@@ -50,12 +50,31 @@ assert.deepEqual(nba.games.map((g) => [g.firstTeam?.name, g.secondTeam?.name, g.
 const nicknames = parseSchedule("Hawks @ Magic: 5:00 PM\nTimberwolves @ Heat: 5:30 PM", nbaTeams);
 assert.deepEqual(nicknames.games.map((g) => [g.firstTeam?.name, g.secondTeam?.name]), [["Hawks", "Magic"], ["Timberwolves", "Heat"]]);
 
-// No alias may point at two teams.
-const seen = new Map<string, string>();
-for (const t of nbaTeams as { name: string; aliases?: string[] }[]) {
-  for (const key of [t.name, ...(t.aliases ?? [])].map(normalizeName)) {
-    assert.ok(!seen.has(key) || seen.get(key) === t.name, `"${key}" is used by ${seen.get(key)} and ${t.name}`);
-    seen.set(key, t.name);
+const load = (sport: string) => JSON.parse(fs.readFileSync(new URL(`../data/${sport}.json`, import.meta.url), "utf8")).teams;
+
+const nfl = parseSchedule("Sunday, October 25, 2026\nBills @ Kansas City: 1:00 PM\nNY Giants vs Dallas Cowboys: 4:25 PM\nLA Rams at Niners 8:20 PM", load("nfl"));
+assert.equal(nfl.date, "2026-10-25");
+assert.deepEqual(nfl.games.map((g) => [g.firstTeam?.name, g.secondTeam?.name, g.time]), [
+  ["Bills", "Chiefs", "13:00"],
+  ["Giants", "Cowboys", "16:25"],
+  ["Rams", "49ers", "20:20"],
+]);
+
+const mlb = parseSchedule("NY Yankees @ Dodgers: 5:08 PM\nChicago White Sox vs St. Louis: 7:15 PM\nA's at Red Sox 1:05 PM", load("mlb"));
+assert.deepEqual(mlb.games.map((g) => [g.firstTeam?.name, g.secondTeam?.name, g.time]), [
+  ["Yankees", "Dodgers", "17:08"],
+  ["White Sox", "Cardinals", "19:15"],
+  ["Athletics", "Red Sox", "13:05"],
+]);
+
+// Within a sport, no name or alias may point at two teams.
+for (const sport of ["college-football", "nfl", "nba", "mlb"]) {
+  const seen = new Map<string, string>();
+  for (const t of load(sport) as { name: string; aliases?: string[] }[]) {
+    for (const key of [t.name, ...(t.aliases ?? [])].map(normalizeName)) {
+      assert.ok(!seen.has(key) || seen.get(key) === t.name, `${sport}: "${key}" is used by ${seen.get(key)} and ${t.name}`);
+      seen.set(key, t.name);
+    }
   }
 }
 

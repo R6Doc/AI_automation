@@ -1,7 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import collegeFootball from "../../data/college-football.json";
+import mlb from "../../data/mlb.json";
 import nba from "../../data/nba.json";
+import nfl from "../../data/nfl.json";
 import { SPORTS, type SportId } from "./sports";
 
 export type Team = {
@@ -17,7 +19,7 @@ export type Team = {
 
 type RawTeam = { id: string; name: string; lines?: string[]; aliases?: string[] };
 
-const DATA: Record<SportId, { teams: RawTeam[] }> = { "college-football": collegeFootball, nba };
+const DATA: Record<SportId, { teams: RawTeam[] }> = { "college-football": collegeFootball, nfl, nba, mlb };
 const LOGO_EXTENSIONS = [".svg", ".png"];
 
 /**

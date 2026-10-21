@@ -25,10 +25,12 @@ const newRow = (time = "19:00"): MatchRow => ({ key: nextKey++, home: "", away: 
 
 const isoDate = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
-/** College football is a Saturday thing; NBA plays every night, so default to today. */
+/** Football defaults to its next game day (Saturday for college, Sunday for NFL); NBA and MLB play every day. */
+const GAME_DAY: Partial<Record<SportId, number>> = { "college-football": 6, nfl: 0 };
 function defaultDate(sport: SportId): string {
   const d = new Date();
-  if (sport === "college-football") d.setDate(d.getDate() + ((6 - d.getDay() + 7) % 7));
+  const day = GAME_DAY[sport];
+  if (day !== undefined) d.setDate(d.getDate() + ((day - d.getDay() + 7) % 7));
   return isoDate(d);
 }
 

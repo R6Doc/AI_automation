@@ -11,7 +11,9 @@ export type ImportedGame = { home: string; away: string; time: string | null };
 
 const EXAMPLES: Record<SportId, string> = {
   "college-football": "Saturday, October 10, 2026\n7 Indiana @ Nebraska: 10:00 AM\n1 Texas vs Oklahoma: 1:30 PM",
+  nfl: "Sunday, October 25, 2026\nBills @ Chiefs: 1:00 PM\nNY Giants vs Dallas: 4:25 PM",
   nba: "Tuesday, October 20, 2026\nBoston @ New York: 7:30 PM\nGolden State vs LA Lakers: 10:00 PM",
+  mlb: "Tuesday, October 20, 2026\nYankees @ Dodgers: 5:08 PM\nToronto vs Seattle: 8:08 PM",
 };
 
 const firstSelection = (count: number) => new Set(Array.from({ length: Math.min(count, MAX_MATCHES) }, (_, i) => i));

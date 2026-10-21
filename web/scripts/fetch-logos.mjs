@@ -1,6 +1,8 @@
 // Downloads every team's logo into public/logos/<sport>/<team-id>.<ext>.
 //   College football: ESPN, 500x500 transparent PNG, from the espnId field.
 //   NBA: nba.com, vector SVG, from the nbaId field.
+//   NFL, MLB: from the logoUrl field (nfl.com / mlbstatic.com). SVG where the league has one,
+//   otherwise the largest PNG; the file gets whichever extension matches what came back.
 // Existing files are skipped unless --force is passed.
 //
 //   node scripts/fetch-logos.mjs                    # all sports, missing logos only
@@ -15,19 +17,25 @@ const root = path.join(import.meta.dirname, "..");
 const force = process.argv.includes("--force");
 const espnVariant = process.argv.includes("--dark") ? "500-dark" : "500";
 
+const isSvg = (buf) => buf.subarray(0, 500).toString().includes("<svg");
+const isPng = (buf) => buf.subarray(1, 4).toString() === "PNG";
+const svgOrPng = (buf) => (isSvg(buf) ? ".svg" : isPng(buf) ? ".png" : null);
+
 const SOURCES = {
   "college-football": {
     ext: ".png",
     url: (t) => t.espnId && `https://a.espncdn.com/i/teamlogos/ncaa/${espnVariant}/${t.espnId}.png`,
-    check: (buf) => buf.subarray(1, 4).toString() === "PNG",
+    check: isPng,
     missing: "no espnId",
   },
   nba: {
     ext: ".svg",
     url: (t) => t.nbaId && `https://cdn.nba.com/logos/nba/${t.nbaId}/global/L/logo.svg`,
-    check: (buf) => buf.subarray(0, 500).toString().includes("<svg"),
+    check: isSvg,
     missing: "no nbaId",
   },
+  nfl: { url: (t) => t.logoUrl, detect: svgOrPng, missing: "no logoUrl" },
+  mlb: { url: (t) => t.logoUrl, detect: svgOrPng, missing: "no logoUrl" },
 };
 
 const wanted = process.argv.slice(2).filter((a) => !a.startsWith("--"));
@@ -42,16 +50,18 @@ for (const sport of wanted.length ? wanted : Object.keys(SOURCES)) {
   const failed = [];
 
   for (const team of teams) {
-    const file = path.join(outDir, team.id + source.ext);
     const url = source.url(team);
     if (!url) { failed.push(`${team.name} (${source.missing})`); continue; }
-    if (!force && fs.existsSync(file)) { skipped++; continue; }
+    const existing = [".svg", ".png"].map((e) => path.join(outDir, team.id + e)).filter((f) => fs.existsSync(f));
+    if (!force && existing.length) { skipped++; continue; }
     try {
       const res = await fetch(url);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const buf = Buffer.from(await res.arrayBuffer());
-      if (!source.check(buf)) throw new Error(`not a ${source.ext} file`);
-      fs.writeFileSync(file, buf);
+      const ext = source.detect ? source.detect(buf) : source.check(buf) && source.ext;
+      if (!ext) throw new Error("not an SVG or PNG");
+      for (const f of existing) fs.unlinkSync(f); // an SVG would otherwise keep winning over a new PNG
+      fs.writeFileSync(path.join(outDir, team.id + ext), buf);
       downloaded++;
     } catch (err) {
       failed.push(`${team.name} (${err.message})`);

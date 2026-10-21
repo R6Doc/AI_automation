@@ -19,7 +19,7 @@ const MAX_BODY_BYTES = 64 * 1024;
 const MAX_LOGO_BYTES = 5 * 1024 * 1024;
 const LOGO_TYPES = { ".svg": "image/svg+xml", ".png": "image/png" };
 // Keep in sync with web/src/lib/sports.ts. All sports share one template; the sport names the file.
-const SPORTS = ["college-football", "nba"];
+const SPORTS = ["college-football", "nfl", "nba", "mlb"];
 
 const config = loadConfig();
 const expandHome = (p) => (p.startsWith("~/") ? path.join(os.homedir(), p.slice(2)) : p);
