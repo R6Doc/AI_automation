@@ -1,0 +1,13 @@
+{
+  "name": "Tokiwa Sell Sheets",
+  "id": "tokiwa-sell-sheets",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": ["*"],
+    "reasoning": "Downloads sell-sheet batches from your own dashboard, whose address you type into the plugin."
+  }
+}

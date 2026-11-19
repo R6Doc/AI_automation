@@ -1,4 +1,6 @@
-# Match Generator
+# Match Generator + Sell Sheets
+
+The dashboard has two pages: **Match Graphics** (`/`, below) and **Sell Sheets** (`/hrs`, see [Sell Sheets](#sell-sheets-hrs)).
 
 The designer picks the matches on a web dashboard, clicks **Generate**, and Illustrator opens a finished college football, NFL, NBA or MLB graphic ready for polishing. All sports use the same template.
 
@@ -57,3 +59,28 @@ If Illustrator is installed under another name (e.g. `Adobe Illustrator (Beta)`)
 - **Team not in the list:** the designer can type any name. It's placed without a logo.
 - **Update the template:** replace `~/MatchGenerator/template/template.ai` on the Mac.
 - **Update the agent:** re-run `install.sh` (it keeps the existing config and template).
+
+## Sell Sheets (`/hrs`)
+
+The designer drops product docx files and bottle photos on `/hrs`, checks the fields, and clicks
+**Send to Figma**. In Figma, the **Tokiwa Sell Sheets** plugin creates every sheet in the batch in one click.
+
+```text
+/hrs (browser)  ──photos + fields──▶  /api/hrs (Vercel)  ──▶  Vercel Blob
+                                                          ◀──  Figma plugin (figma-plugin/) pulls the batch,
+                                                                copies "Sell sheet auto" per product, then deletes it
+```
+
+- **docx parsing** (`web/src/lib/sellsheet.ts`, test: `node --experimental-strip-types web/tests/sellsheet.test.ts`):
+  first line = name, then `Label: value` specs, the name again, the description, `From …:` quote (added to the
+  description), `Tasting Notes` (only filled from that heading), `About …:` + distillery name + text.
+  Fields the docx doesn't have (region, still type, bottle count, …) can be typed in; blank ones are hidden on the sheet.
+- **Photos** are paired with docx files by filename (`solla.docx` + `solla.png`). Large photos are scaled down
+  in the browser (PNG stays PNG for transparency) to fit Vercel's 4.5 MB upload limit.
+- **Storage:** in Vercel, **Storage → Create → Blob**, connect it to the project and redeploy
+  (that adds `BLOB_READ_WRITE_TOKEN`). The store can be private: everything is read back through the API.
+  For a public store set `BLOB_ACCESS=public`. Locally without a token, batches are saved in `web/.hrs-data/`.
+- **Trello cards** (optional): instead of dropping files, paste card links. Set `TRELLO_KEY` and `TRELLO_TOKEN`
+  (from https://trello.com/app-key). Each card's `.docx` becomes a sheet. Its bottle shot is the image named after
+  the product, or else the largest image that isn't a screenshot (`image.png`, `Screenshot …`).
+- **Plugin:** see [`figma-plugin/README.md`](figma-plugin/README.md). It uses the same `DASHBOARD_PASSWORD`.
